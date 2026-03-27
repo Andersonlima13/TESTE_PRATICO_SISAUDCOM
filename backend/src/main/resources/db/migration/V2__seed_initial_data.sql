@@ -2,7 +2,7 @@ INSERT INTO admin (id, nome, senha)
 VALUES (
     '11111111-1111-1111-1111-111111111111',
     'Administrador',
-    '12345'
+    '$2a$10$TjXVNQAxNLvlcMPfOPht0u9BmE195XWk.CW9gyYMEtyj9uXsSlL9q'
 );
 
 INSERT INTO funcionario (id, nome, data_admissao, salario, ativo)
