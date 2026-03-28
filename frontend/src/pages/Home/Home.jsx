@@ -1,9 +1,65 @@
 // pages/Home/Home.jsx
 import { useState } from "react";
+import styled from "styled-components";
 import FormButton from "../../components/ui/FormButton";
 import InfoButton from "../../components/ui/InfoButton";
 import UserWrapper from "./UserWrapper";
 import Pagination from "./Pagination";
+
+const PageContainer = styled.div`
+  padding: 24px;
+  flex: 1;
+`;
+
+const Title = styled.h1`
+  color: #e0eaff;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0 0 4px;
+`;
+
+const Subtitle = styled.p`
+  color: #4a6a98;
+  font-size: 12px;
+  margin: 0 0 20px;
+`;
+
+const ControlsBar = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+`;
+
+const SearchContainer = styled.div`
+  flex: 1;
+  min-width: 200px;
+  background-color: #0a1a3e;
+  border: 1px solid #1e3a6e;
+  border-radius: 8px;
+  padding: 7px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+const SearchIcon = styled.span`
+  color: #2e4a72;
+  font-size: 14px;
+`;
+
+const SearchInput = styled.input`
+  background: none;
+  border: none;
+  outline: none;
+  color: #a0b8d8;
+  font-size: 12px;
+  width: 100%;
+
+  &::placeholder {
+    color: #4a6a98;
+  }
+`;
 
 // mock — substituir pelo retorno da API
 const MOCK_FUNCIONARIOS = [
@@ -31,46 +87,26 @@ export default function Home() {
   }
 
   return (
-    <div style={{ padding: "24px", flex: 1 }}>
+    <PageContainer>
 
       {/* Cabeçalho da página */}
-      <h1 style={{ color: "#e0eaff", fontSize: "20px", fontWeight: "500", margin: "0 0 4px" }}>
-        Funcionários
-      </h1>
-      <p style={{ color: "#4a6a98", fontSize: "12px", margin: "0 0 20px" }}>
+      <Title>Funcionários</Title>
+      <Subtitle>
         Gerencie todos os funcionários cadastrados no sistema
-      </p>
+      </Subtitle>
 
       {/* Barra de controles */}
-      <div style={{ display: "flex", gap: "10px", marginBottom: "14px", flexWrap: "wrap" }}>
+      <ControlsBar>
 
         {/* Busca */}
-        <div style={{
-          flex: 1,
-          minWidth: "200px",
-          backgroundColor: "#0a1a3e",
-          border: "1px solid #1e3a6e",
-          borderRadius: "8px",
-          padding: "7px 12px",
-          display: "flex",
-          alignItems: "center",
-          gap: "8px",
-        }}>
-          <span style={{ color: "#2e4a72", fontSize: "14px" }}>⌕</span>
-          <input
+        <SearchContainer>
+          <SearchIcon>⌕</SearchIcon>
+          <SearchInput
             value={busca}
             onChange={(e) => setBusca(e.target.value)}
             placeholder="Buscar por nome, ID, cargo..."
-            style={{
-              background: "none",
-              border: "none",
-              outline: "none",
-              color: "#a0b8d8",
-              fontSize: "12px",
-              width: "100%",
-            }}
           />
-        </div>
+        </SearchContainer>
 
         {/* InfoButtons de filtro */}
         <InfoButton
@@ -86,7 +122,7 @@ export default function Home() {
         <FormButton variant="primary" onClick={() => {}}>
           + Novo funcionário
         </FormButton>
-      </div>
+      </ControlsBar>
 
       {/* Tabela */}
       <UserWrapper
@@ -106,6 +142,6 @@ export default function Home() {
         totalPaginas={10}
         onPaginaChange={setPagina}
       />
-    </div>
+    </PageContainer>
   );
 }

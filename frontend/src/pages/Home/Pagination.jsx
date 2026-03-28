@@ -1,4 +1,43 @@
 // pages/Home/Pagination.jsx
+import styled from "styled-components";
+
+const PaginationContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+`;
+
+const RecordsInfo = styled.span`
+  color: #3a5a88;
+  font-size: 11px;
+`;
+
+const PagesContainer = styled.div`
+  display: flex;
+  gap: 4px;
+  align-items: center;
+`;
+
+const PageButton = styled.button`
+  background-color: ${(props) => (props.$active ? "#3b5ec6" : "#0a1a3e")};
+  border: 1px solid ${(props) => (props.$active ? "#3b5ec6" : "#1e3a6e")};
+  border-radius: 4px;
+  padding: 4px 9px;
+  color: ${(props) => (props.$active ? "#e0eaff" : "#5a7aa8")};
+  font-size: 11px;
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
+  min-width: 28px;
+  text-align: center;
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+`;
+
+const Ellipsis = styled.span`
+  color: #3a5a88;
+  font-size: 11px;
+  padding: 0 4px;
+`;
+
 export default function Pagination({
   totalRegistros,
   paginaAtual,
@@ -20,62 +59,41 @@ export default function Pagination({
     }
   }
 
-  const btnStyle = (active) => ({
-    backgroundColor: active ? "#3b5ec6" : "#0a1a3e",
-    border: `1px solid ${active ? "#3b5ec6" : "#1e3a6e"}`,
-    borderRadius: "4px",
-    padding: "4px 9px",
-    color: active ? "#e0eaff" : "#5a7aa8",
-    fontSize: "11px",
-    cursor: "pointer",
-    minWidth: "28px",
-    textAlign: "center",
-  });
-
   return (
-    <div style={{
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
-      marginTop: "14px",
-    }}>
-      <span style={{ color: "#3a5a88", fontSize: "11px" }}>
+    <PaginationContainer>
+      <RecordsInfo>
         Exibindo {Math.min(10, totalRegistros)} de {totalRegistros} registros
-      </span>
+      </RecordsInfo>
 
-      <div style={{ display: "flex", gap: "4px", alignItems: "center" }}>
-        <button
-          style={btnStyle(false)}
+      <PagesContainer>
+        <PageButton
           onClick={() => onPaginaChange?.(paginaAtual - 1)}
           disabled={paginaAtual === 1}
         >
           ←
-        </button>
+        </PageButton>
 
         {pages.map((page, i) =>
           page === "..." ? (
-            <span key={`ellipsis-${i}`} style={{ color: "#3a5a88", fontSize: "11px", padding: "0 4px" }}>
-              ...
-            </span>
+            <Ellipsis key={`ellipsis-${i}`}>...</Ellipsis>
           ) : (
-            <button
+            <PageButton
               key={page}
-              style={btnStyle(page === paginaAtual)}
+              $active={page === paginaAtual}
               onClick={() => onPaginaChange?.(page)}
             >
               {page}
-            </button>
+            </PageButton>
           )
         )}
 
-        <button
-          style={btnStyle(false)}
+        <PageButton
           onClick={() => onPaginaChange?.(paginaAtual + 1)}
           disabled={paginaAtual === totalPaginas}
         >
           →
-        </button>
-      </div>
-    </div>
+        </PageButton>
+      </PagesContainer>
+    </PaginationContainer>
   );
 }

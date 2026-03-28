@@ -1,7 +1,77 @@
 // pages/Home/UserItem.jsx
+import styled from "styled-components";
 import FormButton from "../../components/ui/FormButton";
 
 const GRID = "60px 1.5fr 1fr 1fr 0.8fr 0.8fr 0.8fr 1.2fr";
+
+const StyledAvatar = styled.div`
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #1a2e6e;
+  border: 1px solid #2e4a8a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 500;
+  color: #7a9ac8;
+  flex-shrink: 0;
+`;
+
+const StyledStatusBadge = styled.span`
+  display: inline-flex;
+  align-items: center;
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 10px;
+  font-weight: 500;
+  margin: 6px 6px 6px 0;
+  background-color: ${(props) => (props.$ativo ? "#0e3028" : "#1e1030")};
+  color: ${(props) => (props.$ativo ? "#3acf8f" : "#8060c0")};
+  border: 2px solid ${(props) => (props.$ativo ? "#1a6048" : "#3a2068")};
+`;
+
+const ItemContainer = styled.div`
+  display: grid;
+  grid-template-columns: ${GRID};
+  padding: 10px 16px;
+  border-bottom: 1px solid #112040;
+  align-items: center;
+  transition: background-color 0.15s;
+
+  &:hover {
+    background-color: #0f2050;
+  }
+`;
+
+const IdText = styled.span`
+  color: #5a7aa8;
+  font-size: 11px;
+`;
+
+const FlexRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+const NameText = styled.span`
+  color: #a0b8d8;
+  font-size: 11px;
+  line-height: 1.3;
+`;
+
+const ColumnText = styled.span`
+  color: #a0b8d8;
+  font-size: 11px;
+`;
+
+const ActionsContainer = styled.div`
+  display: flex;
+  gap: 5px;
+  align-items: center;
+`;
 
 function Avatar({ nome }) {
   const initials = nome
@@ -11,42 +81,14 @@ function Avatar({ nome }) {
     .join("")
     .toUpperCase();
 
-  return (
-    <div style={{
-      width: "30px",
-      height: "30px",
-      borderRadius: "50%",
-      backgroundColor: "#1a2e6e",
-      border: "1px solid #2e4a8a",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      fontSize: "10px",
-      fontWeight: "500",
-      color: "#7a9ac8",
-      flexShrink: 0,
-    }}>
-      {initials}
-    </div>
-  );
+  return <StyledAvatar>{initials}</StyledAvatar>;
 }
 
 function StatusBadge({ ativo }) {
   return (
-    <span style={{
-      display: "inline-flex",
-      alignItems: "center",
-      borderRadius: "20px",
-      padding: "3px 10px",
-      fontSize: "10px",
-      fontWeight: "500",
-      margin: "6px 6px 6px 0",
-      backgroundColor: ativo ? "#0e3028" : "#1e1030",
-      color: ativo ? "#3acf8f" : "#8060c0",
-      border: `2px solid ${ativo ? "#1a6048" : "#3a2068"}`,
-    }}>
+    <StyledStatusBadge $ativo={ativo}>
       {ativo ? "Ativo" : "Inativo"}
-    </span>
+    </StyledStatusBadge>
   );
 }
 
@@ -54,39 +96,26 @@ export default function UserItem({ funcionario, onVer, onEditar, onExcluir }) {
   const { id, nome, cargo, departamento, salario, dataAdmissao, ativo } = funcionario;
 
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: GRID,
-        padding: "10px 16px",
-        borderBottom: "1px solid #112040",
-        alignItems: "center",
-        transition: "background-color 0.15s",
-      }}
-      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#0f2050")}
-      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
-    >
-      <span style={{ color: "#5a7aa8", fontSize: "11px" }}>#{id}</span>
+    <ItemContainer>
+      <IdText>#{id}</IdText>
 
-      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+      <FlexRow>
         <Avatar nome={nome} />
-        <span style={{ color: "#a0b8d8", fontSize: "11px", lineHeight: "1.3" }}>
-          {nome}
-        </span>
-      </div>
+        <NameText>{nome}</NameText>
+      </FlexRow>
 
-      <span style={{ color: "#a0b8d8", fontSize: "11px" }}>{cargo}</span>
-      <span style={{ color: "#a0b8d8", fontSize: "11px" }}>{departamento}</span>
+      <ColumnText>{cargo}</ColumnText>
+      <ColumnText>{departamento}</ColumnText>
 
-      <span style={{ color: "#a0b8d8", fontSize: "11px" }}>
+      <ColumnText>
         R$ {salario?.toLocaleString("pt-BR")}
-      </span>
+      </ColumnText>
 
-      <span style={{ color: "#a0b8d8", fontSize: "11px" }}>{dataAdmissao}</span>
+      <ColumnText>{dataAdmissao}</ColumnText>
 
       <StatusBadge ativo={ativo} />
 
-      <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
+      <ActionsContainer>
         <FormButton size="sm" variant="ghost" onClick={() => onVer?.(id)}>
           Ver
         </FormButton>
@@ -96,7 +125,7 @@ export default function UserItem({ funcionario, onVer, onEditar, onExcluir }) {
         <FormButton size="sm" variant="danger" onClick={() => onExcluir?.(id)}>
           Excluir
         </FormButton>
-      </div>
-    </div>
+      </ActionsContainer>
+    </ItemContainer>
   );
 }

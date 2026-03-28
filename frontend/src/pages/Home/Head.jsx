@@ -1,4 +1,6 @@
 // pages/Home/Head.jsx
+import styled from "styled-components";
+
 const COLUMNS = [
   { key: "id",           label: "ID"           },
   { key: "nome",         label: "Nome"         },
@@ -10,41 +12,50 @@ const COLUMNS = [
   { key: "acoes",        label: "Ações"        },
 ];
 
-const GRID = "60px 1.5fr 1fr 1fr 0.8fr 0.8fr 0.8fr 1.2fr";
+const GRID_TEMPLATE = "60px 1.5fr 1fr 1fr 0.8fr 0.8fr 0.8fr 1.2fr";
+
+const StyledHead = styled.div`
+  display: grid;
+  grid-template-columns: ${GRID_TEMPLATE};
+  background-color: #0a1530;
+  border-bottom: 1px solid #1e3a6e;
+  padding: 0 16px;
+`;
+
+const HeaderCell = styled.div`
+  padding: 10px 8px;
+  color: ${(props) => (props.$isSorted ? "#a0c0f0" : "#4a6a98")};
+  font-size: 11px;
+  font-weight: 500;
+  cursor: ${(props) => (props.$canSort ? "pointer" : "default")};
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+`;
+
+const SortIcon = styled.span`
+  font-size: 9px;
+`;
 
 export default function Head({ onSort, sortKey, sortDir }) {
   return (
-    <div style={{
-      display: "grid",
-      gridTemplateColumns: GRID,
-      backgroundColor: "#0a1530",
-      borderBottom: "1px solid #1e3a6e",
-      padding: "0 16px",
-    }}>
+    <StyledHead>
       {COLUMNS.map((col) => (
-        <div
+        <HeaderCell
           key={col.key}
           onClick={() => col.key !== "acoes" && onSort?.(col.key)}
-          style={{
-            padding: "10px 8px",
-            color: sortKey === col.key ? "#a0c0f0" : "#4a6a98",
-            fontSize: "11px",
-            fontWeight: "500",
-            cursor: col.key !== "acoes" ? "pointer" : "default",
-            userSelect: "none",
-            display: "flex",
-            alignItems: "center",
-            gap: "4px",
-          }}
+          $isSorted={sortKey === col.key}
+          $canSort={col.key !== "acoes"}
         >
           {col.label}
           {sortKey === col.key && (
-            <span style={{ fontSize: "9px" }}>
+            <SortIcon>
               {sortDir === "asc" ? "▲" : "▼"}
-            </span>
+            </SortIcon>
           )}
-        </div>
+        </HeaderCell>
       ))}
-    </div>
+    </StyledHead>
   );
 }

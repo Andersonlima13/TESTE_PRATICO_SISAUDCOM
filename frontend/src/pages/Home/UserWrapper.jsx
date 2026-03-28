@@ -1,6 +1,21 @@
 // pages/Home/UserWrapper.jsx
+import styled from "styled-components";
 import Head from "./Head";
 import UserItem from "./UserItem";
+
+const Wrapper = styled.div`
+  background-color: #0a1530;
+  border: 1px solid #1e3a6e;
+  border-radius: 10px;
+  overflow: hidden;
+`;
+
+const EmptyMessage = styled.div`
+  padding: 40px;
+  text-align: center;
+  color: #3a5a88;
+  font-size: 13px;
+`;
 
 export default function UserWrapper({
   funcionarios,
@@ -12,23 +27,13 @@ export default function UserWrapper({
   sortDir,
 }) {
   return (
-    <div style={{
-      backgroundColor: "#0a1530",
-      border: "1px solid #1e3a6e",
-      borderRadius: "10px",
-      overflow: "hidden",
-    }}>
+    <Wrapper>
       <Head onSort={onSort} sortKey={sortKey} sortDir={sortDir} />
 
       {funcionarios.length === 0 ? (
-        <div style={{
-          padding: "40px",
-          textAlign: "center",
-          color: "#3a5a88",
-          fontSize: "13px",
-        }}>
+        <EmptyMessage>
           Nenhum funcionário encontrado.
-        </div>
+        </EmptyMessage>
       ) : (
         funcionarios.map((f) => (
           <UserItem
@@ -40,6 +45,6 @@ export default function UserWrapper({
           />
         ))
       )}
-    </div>
+    </Wrapper>
   );
 }
