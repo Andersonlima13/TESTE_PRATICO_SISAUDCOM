@@ -33,4 +33,15 @@ public class AuthService {
         return new AuthResponseDto(token, "Bearer");
     }
 
+    public void logout(String authorizationHeader) {
+        String token = jwtService.extractBearerToken(authorizationHeader);
+
+        if (!jwtService.isTokenValid(token)) {
+            throw new IllegalArgumentException("Token invalido ou expirado");
+        }
+    }
+
+
+    
+
 }

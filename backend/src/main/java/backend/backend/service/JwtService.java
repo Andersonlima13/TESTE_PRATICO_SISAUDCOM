@@ -35,4 +35,26 @@ public class JwtService {
                 .signWith(secretKey)
                 .compact();
     }
+
+    public String extractBearerToken(String authorizationHeader) {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            throw new IllegalArgumentException("Token ausente ou invalido");
+        }
+
+        return authorizationHeader.substring(7).trim();
+    }
+
+    public boolean isTokenValid(String token) {
+        try {
+            var claims = Jwts.parser()
+                    .verifyWith(secretKey)
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
+
+            return claims.getExpiration() != null && claims.getExpiration().toInstant().isAfter(Instant.now());
+        } catch (Exception exception) {
+            return false;
+        }
+    }
 }
