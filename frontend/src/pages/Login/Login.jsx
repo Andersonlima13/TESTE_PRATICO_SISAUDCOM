@@ -1,5 +1,7 @@
+// pages/Login/Login.jsx
 import styled from "styled-components";
 import LoginForm from "./LoginForm";
+import loginBg from "../../assets/login-bg.png";
 
 const PageContainer = styled.div`
   flex: 1;
@@ -7,19 +9,10 @@ const PageContainer = styled.div`
   align-items: center;
   justify-content: center;
   padding: 40px 20px;
-  position: relative;
-`;
-
-const DecorativeCircle = styled.div`
-  position: absolute;
-  width: ${props => props.size}px;
-  height: ${props => props.size}px;
-  border-radius: 50%;
-  border: 1px solid rgba(91, 127, 212, ${props => props.opacity});
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
+  background-image: url(${loginBg});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 `;
 
 const Card = styled.div`
@@ -86,18 +79,6 @@ const CheckIcon = () => (
 export default function Login({ onSubmit, loading }) {
   return (
     <PageContainer>
-      {[
-        { size: 320, opacity: 0.12 },
-        { size: 480, opacity: 0.07 },
-        { size: 640, opacity: 0.03 }
-      ].map((circle) => (
-        <DecorativeCircle 
-          key={circle.size} 
-          size={circle.size} 
-          opacity={circle.opacity} 
-        />
-      ))}
-
       <Card>
         <CheckIcon />
         <Title>Acesso ao Sistema</Title>
