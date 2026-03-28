@@ -1,14 +1,18 @@
+import styled from "styled-components";
+
+const StyledWrapper = styled.div`
+  height: 100vh;
+  width: 100vw;
+  background-color: #0d1b3e;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+`;
+
 export default function Wrapper({ children }) {
   return (
-    <div style={{
-      height: "100vh",
-      width: "100vw",
-      backgroundColor: "#0d1b3e",
-      display: "flex",
-      flexDirection: "column",
-      overflow: "hidden"
-    }}>
+    <StyledWrapper>
       {children}
-    </div>
+    </StyledWrapper>
   );
 }

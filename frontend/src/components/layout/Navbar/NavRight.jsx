@@ -1,21 +1,32 @@
-// components/layout/Navbar/NavRight.jsx
+import styled from "styled-components";
+
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+const Triangle = styled.div`
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 10px solid #5b7fd4;
+`;
+
+const Title = styled.span`
+  color: #c8d8f0;
+  font-size: 14px;
+  font-weight: 500;
+`;
+
 export default function NavRight() {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-      <div style={{
-        width: 0,
-        height: 0,
-        borderTop: "6px solid transparent",
-        borderBottom: "6px solid transparent",
-        borderLeft: "10px solid #5b7fd4",
-      }} />
-      <span style={{
-        color: "#c8d8f0",
-        fontSize: "14px",
-        fontWeight: "500",
-      }}>
+    <Container>
+      <Triangle />
+      <Title>
         SAAM
-      </span>
-    </div>
+      </Title>
+    </Container>
   );
 }

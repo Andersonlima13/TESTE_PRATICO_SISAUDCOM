@@ -1,7 +1,13 @@
-// pages/Login/LoginForm.jsx
 import { useState } from "react";
+import styled from "styled-components";
 import InputForm from "../../components/ui/InputForm";
 import Button from "../../components/ui/Button";
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
 
 export default function LoginForm({ onSubmit, loading }) {
   const [form, setForm] = useState({ email: "", senha: "" });
@@ -16,10 +22,7 @@ export default function LoginForm({ onSubmit, loading }) {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{ display: "flex", flexDirection: "column", gap: "16px" }}
-    >
+    <Form onSubmit={handleSubmit}>
       <InputForm
         label="E-mail do administrador"
         type="email"
@@ -39,6 +42,6 @@ export default function LoginForm({ onSubmit, loading }) {
       <Button type="submit" fullWidth disabled={loading}>
         {loading ? "Entrando..." : "Entrar no sistema"}
       </Button>
-    </form>
+    </Form>
   );
 }
