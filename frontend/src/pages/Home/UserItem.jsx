@@ -1,6 +1,8 @@
 // pages/Home/UserItem.jsx
 import FormButton from "../../components/ui/FormButton";
 
+const GRID = "60px 1.5fr 1fr 1fr 0.8fr 0.8fr 0.8fr 1.2fr";
+
 function Avatar({ nome }) {
   const initials = nome
     .split(" ")
@@ -32,14 +34,16 @@ function Avatar({ nome }) {
 function StatusBadge({ ativo }) {
   return (
     <span style={{
-      display: "inline-block",
+      display: "inline-flex",
+      alignItems: "center",
       borderRadius: "20px",
       padding: "3px 10px",
       fontSize: "10px",
       fontWeight: "500",
+      margin: "6px 6px 6px 0",
       backgroundColor: ativo ? "#0e3028" : "#1e1030",
       color: ativo ? "#3acf8f" : "#8060c0",
-      border: `1px solid ${ativo ? "#1a6048" : "#3a2068"}`,
+      border: `2px solid ${ativo ? "#1a6048" : "#3a2068"}`,
     }}>
       {ativo ? "Ativo" : "Inativo"}
     </span>
@@ -50,14 +54,15 @@ export default function UserItem({ funcionario, onVer, onEditar, onExcluir }) {
   const { id, nome, cargo, departamento, salario, dataAdmissao, ativo } = funcionario;
 
   return (
-    <div style={{
-      display: "grid",
-      gridTemplateColumns: "60px 160px 130px 120px 90px 100px 80px 140px",
-      padding: "10px 12px",
-      borderBottom: "1px solid #112040",
-      alignItems: "center",
-      transition: "background-color 0.15s",
-    }}
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: GRID,
+        padding: "10px 16px",
+        borderBottom: "1px solid #112040",
+        alignItems: "center",
+        transition: "background-color 0.15s",
+      }}
       onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#0f2050")}
       onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
     >
@@ -81,7 +86,7 @@ export default function UserItem({ funcionario, onVer, onEditar, onExcluir }) {
 
       <StatusBadge ativo={ativo} />
 
-      <div style={{ display: "flex", gap: "5px" }}>
+      <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
         <FormButton size="sm" variant="ghost" onClick={() => onVer?.(id)}>
           Ver
         </FormButton>

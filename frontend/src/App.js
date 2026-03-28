@@ -10,7 +10,7 @@ function App() {
 
   async function handleLogin(form) {
     console.log("login:", form);
-    setPagina("home"); // trocar por React Router futuramente
+    setPagina("home");
   }
 
   return (

@@ -1,23 +1,25 @@
 // pages/Home/Head.jsx
 const COLUMNS = [
-  { key: "id",           label: "ID",           width: "60px"  },
-  { key: "nome",         label: "Nome",          width: "160px" },
-  { key: "cargo",        label: "Cargo",         width: "130px" },
-  { key: "departamento", label: "Departamento",  width: "120px" },
-  { key: "salario",      label: "Salário",       width: "90px"  },
-  { key: "admissao",     label: "Admissão",      width: "100px" },
-  { key: "status",       label: "Status",        width: "80px"  },
-  { key: "acoes",        label: "Ações",         width: "140px" },
+  { key: "id",           label: "ID"           },
+  { key: "nome",         label: "Nome"         },
+  { key: "cargo",        label: "Cargo"        },
+  { key: "departamento", label: "Departamento" },
+  { key: "salario",      label: "Salário"      },
+  { key: "admissao",     label: "Admissão"     },
+  { key: "status",       label: "Status"       },
+  { key: "acoes",        label: "Ações"        },
 ];
+
+const GRID = "60px 1.5fr 1fr 1fr 0.8fr 0.8fr 0.8fr 1.2fr";
 
 export default function Head({ onSort, sortKey, sortDir }) {
   return (
     <div style={{
       display: "grid",
-      gridTemplateColumns: COLUMNS.map((c) => c.width).join(" "),
+      gridTemplateColumns: GRID,
       backgroundColor: "#0a1530",
       borderBottom: "1px solid #1e3a6e",
-      padding: "0 12px",
+      padding: "0 16px",
     }}>
       {COLUMNS.map((col) => (
         <div
