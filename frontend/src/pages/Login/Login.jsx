@@ -1,4 +1,3 @@
-// pages/Login/Login.jsx
 import styled from "styled-components";
 import LoginForm from "./LoginForm";
 import loginBg from "../../assets/login-bg.png";
